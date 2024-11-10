@@ -158,7 +158,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 					<li class="nav-item">
-						<h4><a class="nav-link link text-black display-4" href="category.php">食譜分類</a></h4>
+						<h4><a class="nav-link link text-black display-4" href="category.php">分類檢索</a></h4>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">食材庫存</a>
@@ -205,27 +205,27 @@ $conn->close();
             <div class="item-wrapper">
                 <ul class="nav nav-tabs mb-4" role="tablist">
                     <li class="nav-item first mbr-fonts-style">
-                        <a class="nav-link show active display-7" role="tab" onclick="filterRecipes('all')" href="#">
+                        <a class="nav-link display-7 active" role="tab" onclick="filterRecipes('all', this)" href="#">
                             <strong>所有</strong>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('早餐')" href="#">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('早餐', this)" href="#">
                             <strong>早餐</strong>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('午餐')" href="#">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('午餐', this)" href="#">
                             <strong>午餐</strong>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('晚餐')" href="#">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('晚餐', this)" href="#">
                             <strong>晚餐</strong>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('甜點與點心')" href="#">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('甜點與點心', this)" href="#">
                             <strong>點心</strong>
                         </a>
                     </li>
@@ -233,7 +233,11 @@ $conn->close();
                 <div class="tab-content" id="recipe-content">
                     <?php foreach ($recipes as $recipe): ?>
                         <div class="recipe-item" data-category="<?php echo htmlspecialchars($recipe['category']); ?>">
-                            <h5><strong><?php echo htmlspecialchars($recipe['name']); ?></strong></h5>
+                            <h5><strong>
+                                <a href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>">
+                                    <?php echo htmlspecialchars($recipe['name']); ?>
+                                </a>
+                            </strong></h5>
                             <p><?php echo htmlspecialchars($recipe['description']); ?></p>
                             <hr>
                         </div>
@@ -245,8 +249,8 @@ $conn->close();
 </div>
 
 <script>
-// JavaScript 來篩選顯示食譜
-function filterRecipes(category) {
+// JavaScript 來篩選顯示食譜並更新選定標籤的樣式
+function filterRecipes(category, element) {
     let recipes = document.querySelectorAll('.recipe-item');
     recipes.forEach(function(recipe) {
         if (category === 'all' || recipe.getAttribute('data-category') === category) {
@@ -255,9 +259,25 @@ function filterRecipes(category) {
             recipe.style.display = 'none';
         }
     });
+
+    // 移除其他標籤的 active 樣式，並為當前標籤添加 active 樣式
+    let tabs = document.querySelectorAll('.nav-link');
+    tabs.forEach(function(tab) {
+        tab.classList.remove('active');
+    });
+    element.classList.add('active');
 }
 </script>
+
+<style>
+/* 底色樣式 */
+.nav-link.active {
+    background-color: #007bff;
+    color: #fff !important;
+}
+</style>
 </section>
+
 
 <!--頁尾-->
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
