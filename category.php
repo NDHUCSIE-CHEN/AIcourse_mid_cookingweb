@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
   <meta name="description" content="">
   <title>食譜分類檢索</title>
+  <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/web/assets/mobirise-icons2/mobirise2.css?rnd=1731185557076">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap.min.css?rnd=1731185557076">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap-grid.min.css?rnd=1731185557076">
@@ -175,7 +175,14 @@
 
 <!--category.php-->
 <section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
-
+<?php
+ require "database/config.php";
+ $conn = mysqli_init();
+ mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
+ if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
+     die('Failed to connect to MySQL: '.mysqli_connect_error());
+ }else echo"好欸終於我要哭了";
+?>
     <div class="container">
         <div class="row justify-content-center mb-5">
         <span class="blank" style="height: 50px;"></span> 
