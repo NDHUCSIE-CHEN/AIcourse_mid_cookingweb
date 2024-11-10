@@ -13,6 +13,18 @@ if ($conn->query($sql) === TRUE) {
     echo "建立資料表錯誤: " . $conn->error;
 }
 
+$sql = "CREATE TABLE IF NOT EXISTS recipe_details (
+    detail_id INT AUTO_INCREMENT PRIMARY KEY,
+    recipe_id INT NOT NULL,
+    ingredient VARCHAR(255) NOT NULL,
+    quantity DECIMAL(10, 2),
+    unit VARCHAR(50),
+    step_number INT NOT NULL,
+    step_description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
+)";
 // 插入範例數據到 recipe_details
 while($s<6){
 $insert_sql = "INSERT INTO recipe_details (recipe_id, ingredient, quantity, unit, step_number, step_description) VALUES 
