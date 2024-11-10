@@ -158,10 +158,10 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 					<li class="nav-item">
-						<h4><a class="nav-link link text-black display-4" href="category.php">分類</a></h4>
+						<h4><a class="nav-link link text-black display-4" href="category.php">食譜分類</a></h4>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">庫存</a>
+						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">食材庫存</a>
 					</li>	
 				</ul>
 				
@@ -176,88 +176,88 @@
 <!--category.php-->
 <section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
 <?php
- require "database/config.php";
- $conn = mysqli_init();
- mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
- if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
-     die('Failed to connect to MySQL: '.mysqli_connect_error());
- }else echo"好欸終於我要哭了";
+require "database/config.php";
+$conn = mysqli_init();
+mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
+if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
+    die('Failed to connect to MySQL: ' . mysqli_connect_error());
+}
+
+// 查詢所有食譜資料
+$sql = "SELECT recipe_id, name, description, category FROM recipes";
+$result = $conn->query($sql);
+
+$recipes = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $recipes[] = $row;
+    }
+}
+$conn->close();
 ?>
-    <div class="container">
-        <div class="row justify-content-center mb-5">
+
+<div class="container">
+    <div class="row justify-content-center mb-5">
         <span class="blank" style="height: 50px;"></span> 
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-                <div class="item-wrapper">
-                    <ul class="nav nav-tabs mb-4" role="tablist">
-                        <li class="nav-item first mbr-fonts-style"><a class="nav-link mbr-fonts-style show active display-7" role="tab" data-toggle="tab" data-bs-toggle="tab" href="#tabs1-4_tab0" aria-selected="true">
-                                <strong>Programming</strong>
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link mbr-fonts-style active display-7" role="tab" data-toggle="tab" data-bs-toggle="tab" href="#tabs1-4_tab1" aria-selected="true">
-                                <strong>Research</strong>
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link mbr-fonts-style active display-7" role="tab" data-toggle="tab" data-bs-toggle="tab" href="#tabs1-4_tab2" aria-selected="true">
-                                <strong>Development</strong>
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link mbr-fonts-style active display-7" role="tab" data-toggle="tab" data-bs-toggle="tab" href="#tabs1-4_tab3" aria-selected="true">
-                                <strong>Phases</strong>
-                            </a></li>
-                        
-                        
-                    </ul>
-                    <div class="tab-content">
-                        <div id="tab1" class="tab-pane in active" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="mbr-text mbr-fonts-style display-7">
-                                        Mobirise is a free offline app for Windows and Mac to easily create small/medium
-                                        websites, landing pages, online resumes and portfolios. 3100+ beautiful website
-                                        blocks, templates and themes help you to start easily.
-                                    </p>
-                                </div>
-                            </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="item-wrapper">
+                <ul class="nav nav-tabs mb-4" role="tablist">
+                    <li class="nav-item first mbr-fonts-style">
+                        <a class="nav-link show active display-7" role="tab" onclick="filterRecipes('all')" href="#">
+                            <strong>所有</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('早餐')" href="#">
+                            <strong>早餐</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('午餐')" href="#">
+                            <strong>午餐</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('晚餐')" href="#">
+                            <strong>晚餐</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link display-7" role="tab" onclick="filterRecipes('甜點與點心')" href="#">
+                            <strong>點心</strong>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="recipe-content">
+                    <?php foreach ($recipes as $recipe): ?>
+                        <div class="recipe-item" data-category="<?php echo htmlspecialchars($recipe['category']); ?>">
+                            <h5><strong><?php echo htmlspecialchars($recipe['name']); ?></strong></h5>
+                            <p><?php echo htmlspecialchars($recipe['description']); ?></p>
+                            <hr>
                         </div>
-                        <div id="tab2" class="tab-pane" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="mbr-text mbr-fonts-style display-7">
-                                        Mobile web traffic overtook desktop one in 2016 and will only grow, and that's why
-                                        it's important to create websites that look good on all devices. No special actions
-                                        required, all sites you make with the Builder are mobile-friendly. You don't have to
-                                        create a special mobile version of your website, it will adapt automagically. </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="tab3" class="tab-pane" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="mbr-text mbr-fonts-style display-7">
-                                        Mobirise is an easy and simple free website builder - just drop site elements to
-                                        your page, add content and style it to look the way you like.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="tab4" class="tab-pane" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="mbr-text mbr-fonts-style display-7">
-                                        Free Website Builder offers a huge collection of 2500+ website blocks, templates and
-                                        themes with thousands flexible options. Combine blocks from different themes to
-                                        create a unique mix.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
+<script>
+// JavaScript 來篩選顯示食譜
+function filterRecipes(category) {
+    let recipes = document.querySelectorAll('.recipe-item');
+    recipes.forEach(function(recipe) {
+        if (category === 'all' || recipe.getAttribute('data-category') === category) {
+            recipe.style.display = 'block';
+        } else {
+            recipe.style.display = 'none';
+        }
+    });
+}
+</script>
+</section>
 
 <!--頁尾-->
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
