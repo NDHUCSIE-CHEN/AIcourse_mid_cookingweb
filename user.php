@@ -69,18 +69,7 @@
 </section>
 
 <section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
-    <div class="container">
-        <div class="row">            
-            <div class="col-12 mt-4">
-                /*the recipes management*/
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
-    <div class="container mt-5">
+<div class="container mt-5">
         <h1 class="text-center mb-4">食譜管理介面</h1>
         
         <!-- 標籤選單 -->
@@ -169,6 +158,17 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</section>
+
+
+<section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
+    <div class="container">
+        <div class="row">            
+            <div class="col-12 mt-4">
+                <p class="mbr-fonts-style copyright display-7">© 2024 食譜網站. 拜託網站跑起來.</p>
+            </div>
+        </div>
+    </div>
 </section>
 
 
