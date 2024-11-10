@@ -6,6 +6,26 @@ if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYS
     die('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
+$sql = "CREATE TABLE IF NOT EXISTS recipe_details (
+    detail_id INT AUTO_INCREMENT PRIMARY KEY,
+    recipe_id INT NOT NULL,
+    ingredient VARCHAR(255) NOT NULL,
+    quantity DECIMAL(10, 2),
+    unit VARCHAR(50),
+    step_number INT NOT NULL,
+    step_description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
+)";
+
+// 執行 SQL 語句並檢查是否成功
+if ($conn->query($sql) === TRUE) {
+    echo "資料表 recipe_details 建立成功";
+} else {
+    echo "建立資料表錯誤: " . $conn->error;
+}
+
 // 插入範例數據到 recipe_details
 $insert_sql = "INSERT INTO recipe_details (recipe_id, ingredient, quantity, unit, step_number, step_description) VALUES 
     -- 牛奶燕麥粥食譜 (recipe_id = 1)
