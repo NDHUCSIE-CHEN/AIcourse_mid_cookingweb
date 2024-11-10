@@ -66,7 +66,7 @@
 <section data-bs-version="5.1" class="list03 cid-utFOYEnw9D" id="list03-8">
 <?php
     require "database/config.php";
-    include 'database/inventory.php';
+    //include 'database/inventory.php';
 
     $conn = mysqli_init();
     mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
