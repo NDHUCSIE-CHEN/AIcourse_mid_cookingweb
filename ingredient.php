@@ -92,12 +92,12 @@
     <?php if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
             <div class="row justify-content-left item features-without-image mt-0 mb-5">
-                <div class="col-12 col-md-12 col-lg-3">
+                <div class="col-md-12 col-lg-8 item-wrapper">
                     <h5>
                         <strong><?php echo htmlspecialchars($row['ingredient_name']); ?></strong>
                     </h5>
-                </div>
                         <?php echo htmlspecialchars($row['quantity']) . ' ' . htmlspecialchars($row['unit']); ?>
+	        </div>
             </div>
         <?php endwhile; ?>
     <?php else: ?>
