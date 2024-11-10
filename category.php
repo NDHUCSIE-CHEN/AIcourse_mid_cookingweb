@@ -133,7 +133,7 @@
 }
 </style>
 </head>
-<body>
+<body background-image:"images/_2865eef2-ab2f-4285-b32b-7d9d9178836e.jpg" background-size:"cover">
  
 <!--導覽列-->
 <section data-bs-version="5.1" class="menu menu2 cid-utFk60XNeX" once="menu" id="menu-5-utFk60XNeX">
