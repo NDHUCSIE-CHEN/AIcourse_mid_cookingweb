@@ -64,56 +64,51 @@
 </section>
 
 <section data-bs-version="5.1" class="list03 cid-utFOYEnw9D" id="list03-8">
+<?php
+    require "database/config.php";
+    include 'database/inventory.php';
+
+    $conn = mysqli_init();
+    mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
+    if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
+        die('Failed to connect to MySQL: ' . mysqli_connect_error());
+    }
+
+    // 查詢庫存資料
+    $sql = "SELECT ingredient_name, quantity, unit FROM inventory";
+    $result = $conn->query($sql);
+?>
   
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 mb-5 content-head">
         <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
           <span class="blank" style="height: 50px;"></span>
-          <strong>List</strong>
+          <strong>現有材料</strong>
         </h3>
-        
       </div>
     </div>
 
-    <div class="row justify-content-left item features-without-image mt-0 mb-5 active">
-      <div class="col-12 col-md-12 col-lg-3">
-        <h5 class="mbr-card-title mbr-fonts-style mt-0 mb-3 display-7">
-          <strong>About Us</strong>
-        </h5>
-      </div>
-      <div class="col-md-12 col-lg-8 item-wrapper">
-        <p class="mbr-text mbr-fonts-style mt-0 mb-0 display-7">
-          Welcome to Creative Group, where imagination knows no bounds. Founded in 2010, we're a close-knit family of
-          artists, designers, and strategists on a mission to infuse creativity and authenticity into every project.
-          Join us on this inspiring adventure, and let's turn your dreams into reality.
-        </p>
-      </div>
-    </div>
-    <div class="row justify-content-left item features-without-image mt-0 mb-5">
-      <div class="col-12 col-md-12 col-lg-3">
-        <h5 class="mbr-card-title mbr-fonts-style mt-0 mb-3 display-7">
-          <strong>Services</strong>
-        </h5>
-      </div>
-      <div class="col-md-12 col-lg-8 item-wrapper">
-        <p class="mbr-text mbr-fonts-style mt-0 mb-0 display-7">
-          Graphic Design, Web Development, Content Creation, Social Media, Management, Branding and Identity, Marketing Strategy, Email Marketing, Copywriting, App Development, Event Planning, Public Relations, Market Research</p>
-      </div>
-    </div>
-    <div class="row justify-content-left item features-without-image mt-0 mb-5">
-      <div class="col-12 col-md-12 col-lg-3">
-        <h5 class="mbr-card-title mbr-fonts-style mt-0 mb-3 display-7">
-          <strong>Butter</strong>
-        </h5>
-      </div>
-      <div class="col-md-12 col-lg-8 item-wrapper">
-        <p class="mbr-text mbr-fonts-style mt-0 mb-0 display-7">
-          110g
-        </p>
-      </div>
-    </div>
+    <?php if ($result->num_rows > 0): ?>
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <div class="row justify-content-left item features-without-image mt-0 mb-5">
+                <div class="col-12 col-md-12 col-lg-3">
+                    <h5 class="mbr-card-title mbr-fonts-style mt-0 mb-3 display-7">
+                        <strong><?php echo htmlspecialchars($row['ingredient_name']); ?></strong>
+                    </h5>
+                </div>
+                <div class="col-md-12 col-lg-8 item-wrapper">
+                    <p class="mbr-text mbr-fonts-style mt-0 mb-0 display-7">
+                        <?php echo htmlspecialchars($row['quantity']) . ' ' . htmlspecialchars($row['unit']); ?>
+                    </p>
+                </div>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p class="mbr-text mbr-fonts-style align-center display-7">目前沒有庫存資料。</p>
+    <?php endif; ?>
 
+    <?php $conn->close(); ?>
   </div>
 </section>
 
