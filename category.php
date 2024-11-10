@@ -234,7 +234,7 @@ $conn->close();
                     <?php foreach ($recipes as $recipe): ?>
                         <div class="recipe-item" data-category="<?php echo htmlspecialchars($recipe['category']); ?>">
                             <h5><strong>
-                                <a color=#888 href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>">
+                                <a color="#888" href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>">
                                     <?php echo htmlspecialchars($recipe['name']); ?>
                                 </a>
                             </strong></h5>
