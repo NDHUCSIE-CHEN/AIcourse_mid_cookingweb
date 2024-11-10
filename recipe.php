@@ -4,13 +4,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $recipe_id = $_GET['id'];
     
     require "database/config.php";
-    include 'database/recipe_details.php';
+    //include 'database/recipe_details.php';
 
-//    $conn = mysqli_init();
-  //  mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
-    //if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
-      //  die('Failed to connect to MySQL: ' . mysqli_connect_error());
-   // }
+    $conn = mysqli_init();
+    mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
+    if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
+        die('Failed to connect to MySQL: ' . mysqli_connect_error());
+    }
     // 查詢食譜的基本資訊
     $sql = "SELECT name, description FROM recipes WHERE recipe_id = ?";
     $stmt = $conn->prepare($sql);
