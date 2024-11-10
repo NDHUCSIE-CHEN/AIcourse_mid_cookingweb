@@ -8,7 +8,8 @@
   body{
   background-image: url("images/_2865eef2-ab2f-4285-b32b-7d9d9178836e.jpg");
   background-size: cover;
-  }</style>
+  }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <meta name="description" content="">
   <title>食譜分類檢索</title>
@@ -42,10 +43,6 @@
 
 
 <style>
-body{
-  background-image: url("images/_2865eef2-ab2f-4285-b32b-7d9d9178836e.jpg");
-  background-size: cover;
-}
 .navbar-fixed-top {
   top: auto;
 }
