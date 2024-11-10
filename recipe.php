@@ -1,3 +1,19 @@
+<?php
+require "database/config.php";
+require "database/recipe_details.php";
+$conn = mysqli_init();
+mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
+if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
+    die('Failed to connect to MySQL: ' . mysqli_connect_error());
+}
+  date_default_timezone_set('Asia/Taipei');
+  session_start();
+  if (empty($_GET['recipe_id'])) {
+    header('Location: index.php');
+  }
+  $recipe_id = $_GET['recipe_id'];
+?>
+
 <!DOCTYPE html>
 <html >
 <head>
@@ -6,9 +22,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
   <meta name="description" content="探索簡單的食譜，讓烹飪變得輕鬆有趣！無論是新手還是專業廚師，這裡都有適合你的食譜。">
   <title>材料庫存</title>
+  <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/web/assets/mobirise-icons2/mobirise2.css?rnd=1731193637761">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap.min.css?rnd=1731193637761">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap-grid.min.css?rnd=1731193637761">
@@ -63,7 +79,22 @@
 	</nav>
 </section>
 
-/*the recipes management*/
+  <?php
+    $sql = "SELECT * FROM recipe_details WHERE id = '$recipe_id'";
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_row($result);
+    if (empty($row)) {
+        header('Location: index.php');
+    }
+    echo '<h1>'.$row[2].'</h1>';
+    echo "<h2>材料：</h2>";
+    echo nl2br($row[3])."<br>";
+    echo "<h2>步驟：</h2>";
+    echo nl2br($row[4])."<br>";
+    echo "參考網址：";
+    if($row[5]==NULL) echo '無';
+    else echo '<a href="'. $row[5] .'">'.$row[5].'</a><br>';
+  ?>
 
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
     <div class="container">
