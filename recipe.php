@@ -4,12 +4,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $recipe_id = $_GET['id'];
     
     require "database/config.php";
-    //include 'database/recipe_details.php';
-    $conn = mysqli_init();
-    mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
-    if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
-        die('Failed to connect to MySQL: ' . mysqli_connect_error());
-    }
+    include 'database/recipe_details.php';
+
+//    $conn = mysqli_init();
+  //  mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
+    //if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
+      //  die('Failed to connect to MySQL: ' . mysqli_connect_error());
+   // }
     // 查詢食譜的基本資訊
     $sql = "SELECT name, description FROM recipes WHERE recipe_id = ?";
     $stmt = $conn->prepare($sql);
@@ -121,6 +122,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 		</div>
 	</nav>
 </section>
+	
+section data-bs-version="5.1" class="features38 cid-utFk611Cny" id="features-65-utFk611Cny"
+    
 <span class="blank" style="height: 100px;"></span>
 <h1><?php echo htmlspecialchars($recipe['name']); ?></h1>
     <p><?php echo htmlspecialchars($recipe['description']); ?></p>
@@ -138,6 +142,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <li><?php echo htmlspecialchars($step['step_description']); ?></li>
         <?php endforeach; ?>
     </ol>
+</section>
 
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
     <div class="container">
