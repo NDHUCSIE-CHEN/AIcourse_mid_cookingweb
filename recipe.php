@@ -32,7 +32,7 @@
 			<div class="navbar-brand">
 				<span class="navbar-logo">
 					<a href="#">
-						<img src="https://r.mobirisesite.com/882873/assets/images/photo-1490818387583-1baba5e638af.jpeg" alt="" style="height: 4.3rem;">
+          <img src="images/Cookicon.png" alt="" style="height: 4.3rem;">
 					</a>
 				</span>
 				<span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="index.php">食譜</a></span>
