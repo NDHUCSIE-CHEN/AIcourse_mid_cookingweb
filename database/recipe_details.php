@@ -93,9 +93,8 @@ $insert_sql = "INSERT INTO recipe_details (recipe_id, ingredient, quantity, unit
     (11+$s*11, '糖', 5+$s*110, '克', 4, '加入糖拌勻，放入小火煮至濃稠。'),
     (11+$s*11, '奶油', 30, '克', 5, '關火後加入奶油拌勻，倒入塔皮中。'),
     (11+$s*11, '冷卻', NULL, NULL, 6, '將檸檬塔冷藏至凝固後食用。')
-$s = $s+1;
 ";
-
+$s = $s+1;
 if ($conn->query($insert_sql) === TRUE) {
     echo "範例數據插入成功";
 } else {
