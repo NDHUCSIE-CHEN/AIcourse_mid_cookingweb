@@ -120,7 +120,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 		</div>
 	</nav>
 </section>
-
+<span class="blank" style="height: 100px;"></span>
 <h1><?php echo htmlspecialchars($recipe['name']); ?></h1>
     <p><?php echo htmlspecialchars($recipe['description']); ?></p>
     
