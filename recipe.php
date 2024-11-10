@@ -123,7 +123,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 	</nav>
 </section>
 	
-section data-bs-version="5.1" class="features38 cid-utFk611Cny" id="features-65-utFk611Cny"
+<section data-bs-version="5.1" class="features38 cid-utFk611Cny" id="features-65-utFk611Cny"
     
 <span class="blank" style="height: 100px;"></span>
 <h1><?php echo htmlspecialchars($recipe['name']); ?></h1>
