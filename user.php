@@ -2,11 +2,7 @@
 <html >
 <head>
 <style>
-  body{
-  background-image: url("images/_2865eef2-ab2f-4285-b32b-7d9d9178836e.jpg");
-  background-size: cover;
-  }
-</style>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
