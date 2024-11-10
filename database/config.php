@@ -2,8 +2,8 @@
 
 // Configuration for database connection
 
-$host       = getenv('DB_HOST');
-$username   = getenv('DB_USERNAME');
-$password   = getenv('DB_PASSWORD');
-$db_name     = getenv('DB_DATABASE');
+$host       = getenv('AZURE_MYSQL_HOST');
+$username   = getenv('AZURE_MYSQL_USERNAME');
+$password   = getenv('AZURE_MYSQL_PASSWORD');
+$db_name     = getenv('AZURE_MYSQL_DBNAME');
 $sslcert    = "ssl/DigiCertGlobalRootCA.crt.pem";
