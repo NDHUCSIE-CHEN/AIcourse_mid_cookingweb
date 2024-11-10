@@ -1,0 +1,46 @@
+/* 導覽列樣式 */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 40px;
+}
+
+/* 左側導覽連結 */
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 右側個人帳戶連結 */
+.account a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+main {
+    margin-top: 80px;
+    padding: 20px;
+}
