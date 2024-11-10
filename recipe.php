@@ -1,7 +1,7 @@
 <?php
 // 檢查是否傳遞了 id 參數
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $recipe_id = $_GET['id'];
+if (isset($_GET['recipe_id']) && is_numeric($_GET['recipe_id'])) {
+    $recipe_id = $_GET['recipe_id'];
     
     require "database/config.php";
     $conn = mysqli_init();
