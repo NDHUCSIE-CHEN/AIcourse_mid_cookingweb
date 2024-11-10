@@ -200,7 +200,6 @@
 	</nav>
 </section>
 
- <section class="background-section">
 <!--category.php-->
 <section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
 <?php
@@ -304,7 +303,6 @@ function filterRecipes(category, element) {
     color: #fff !important;
 }
 </style>
-</section>
 </section>
 
 <!--頁尾-->
