@@ -160,7 +160,7 @@
 </style>
 </head>
 <body>
- <section class="background-section">
+
 
 <!--導覽列-->
 <section data-bs-version="5.1" class="menu menu2 cid-utFk60XNeX" once="menu" id="menu-5-utFk60XNeX">
@@ -200,7 +200,7 @@
 	</nav>
 </section>
 
-
+ <section class="background-section">
 <!--category.php-->
 <section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
 <?php
@@ -305,7 +305,7 @@ function filterRecipes(category, element) {
 }
 </style>
 </section>
-
+</section>
 
 <!--頁尾-->
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
@@ -318,7 +318,7 @@ function filterRecipes(category, element) {
     </div>
 </section>
 
-</section>
+
   <script src="https://r.mobirisesite.com/882873/assets/web/assets/jquery/jquery.min.js?rnd=1731185557076"></script>
   <script src="https://r.mobirisesite.com/882873/assets/bootstrap/js/bootstrap.bundle.min.js?rnd=1731185557076"></script>
   <script src="https://r.mobirisesite.com/882873/assets/parallax/jarallax.js?rnd=1731185557076"></script>
