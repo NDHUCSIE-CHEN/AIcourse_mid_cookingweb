@@ -1,17 +1,59 @@
 <?php
-require "database/config.php";
-include 'database/recipe_details.php';
-$conn = mysqli_init();
-mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
-if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
-    die('Failed to connect to MySQL: ' . mysqli_connect_error());
+// 檢查是否傳遞了 id 參數
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $recipe_id = $_GET['id'];
+    
+    require "database/config.php";
+    $conn = mysqli_init();
+    mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
+    if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
+        die('Failed to connect to MySQL: ' . mysqli_connect_error());
+    }
+    // 查詢食譜的基本資訊
+    $sql = "SELECT name, description FROM recipes WHERE recipe_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $recipe_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $recipe = $result->fetch_assoc();
+    } else {
+        echo "找不到指定的食譜。";
+        exit();
+    }
+    $stmt->close();
+
+    // 查詢食譜的詳細資訊（食材和步驟）
+    $sql_details = "SELECT ingredient, quantity, unit, step_number, step_description FROM recipe_details WHERE recipe_id = ? ORDER BY step_number";
+    $stmt_details = $conn->prepare($sql_details);
+    $stmt_details->bind_param("i", $recipe_id);
+    $stmt_details->execute();
+    $details_result = $stmt_details->get_result();
+
+    // 儲存詳細資訊
+    $ingredients = [];
+    $steps = [];
+    while ($row = $details_result->fetch_assoc()) {
+        // 將每個食材加入到 $ingredients 陣列中
+        $ingredients[] = [
+            'ingredient' => $row['ingredient'],
+            'quantity' => $row['quantity'],
+            'unit' => $row['unit']
+        ];
+        // 將每個步驟加入到 $steps 陣列中
+        $steps[] = [
+            'step_number' => $row['step_number'],
+            'step_description' => $row['step_description']
+        ];
+    }
+
+    $stmt_details->close();
+    $conn->close();
+} else {
+    echo "無效的食譜 ID。";
+    exit();
 }
-  date_default_timezone_set('Asia/Taipei');
-  session_start();
-  if (empty($_GET['recipe_id'])) {
-    header('Location: index.php');
-  }
-  $recipe_id = $_GET['recipe_id'];
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +65,7 @@ if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYS
   
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <meta name="description" content="探索簡單的食譜，讓烹飪變得輕鬆有趣！無論是新手還是專業廚師，這裡都有適合你的食譜。">
-  <title>材料庫存</title>
+  <title><?php echo htmlspecialchars($recipe['name']); ?></title>
   <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/web/assets/mobirise-icons2/mobirise2.css?rnd=1731193637761">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap.min.css?rnd=1731193637761">
@@ -79,22 +121,22 @@ if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYS
 	</nav>
 </section>
 
-  <?php
-    $sql = "SELECT * FROM recipe_details WHERE id = '$recipe_id'";
-    $result = $conn->query($sql);
-    $row = mysqli_fetch_row($result);
-    if (empty($row)) {
-        header('Location: index.php');
-    }
-    echo '<h1>'.$row[2].'</h1>';
-    echo "<h2>材料：</h2>";
-    echo nl2br($row[3])."<br>";
-    echo "<h2>步驟：</h2>";
-    echo nl2br($row[4])."<br>";
-    echo "參考網址：";
-    if($row[5]==NULL) echo '無';
-    else echo '<a href="'. $row[5] .'">'.$row[5].'</a><br>';
-  ?>
+<h1><?php echo htmlspecialchars($recipe['name']); ?></h1>
+    <p><?php echo htmlspecialchars($recipe['description']); ?></p>
+    
+    <h2>食材</h2>
+    <ul>
+        <?php foreach ($ingredients as $ingredient): ?>
+            <li><?php echo htmlspecialchars($ingredient['ingredient']) . ': ' . htmlspecialchars($ingredient['quantity']) . ' ' . htmlspecialchars($ingredient['unit']); ?></li>
+        <?php endforeach; ?>
+    </ul>
+    
+    <h2>步驟</h2>
+    <ol>
+        <?php foreach ($steps as $step): ?>
+            <li><?php echo htmlspecialchars($step['step_description']); ?></li>
+        <?php endforeach; ?>
+    </ol>
 
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
     <div class="container">
