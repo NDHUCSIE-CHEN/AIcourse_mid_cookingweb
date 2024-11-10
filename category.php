@@ -43,6 +43,27 @@
 
 
 <style>
+	/* 設置背景圖片 */
+.background-section {
+    background-image: url('images/_2865eef2-ab2f-4285-b32b-7d9d9178836e.jpg'); /* 替換為您的圖片路徑 */
+    background-size: cover; /* 確保圖片在各種設備上填滿容器 */
+    background-position: center; /* 圖片在容器中居中顯示 */
+    background-repeat: no-repeat; /* 防止背景圖片重複 */
+    height: 100vh; /* 使區域高度佔滿瀏覽器視窗 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* 設置內容文字顏色 */
+}
+
+/* 將內容設置為自適應 */
+.background-section .content {
+    padding: 20px;
+    max-width: 800px; /* 避免內容過寬 */
+    text-align: center; /* 文字居中 */
+    background: rgba(0, 0, 0, 0.5); /* 添加半透明背景，增強文字可讀性 */
+    border-radius: 10px;
+}
 .navbar-fixed-top {
   top: auto;
 }
@@ -139,7 +160,8 @@
 </style>
 </head>
 <body>
- 
+ <section class="background-section">
+
 <!--導覽列-->
 <section data-bs-version="5.1" class="menu menu2 cid-utFk60XNeX" once="menu" id="menu-5-utFk60XNeX">
 	<nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
@@ -177,6 +199,7 @@
 		</div>
 	</nav>
 </section>
+
 
 <!--category.php-->
 <section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
@@ -295,7 +318,7 @@ function filterRecipes(category, element) {
     </div>
 </section>
 
-
+</section>
   <script src="https://r.mobirisesite.com/882873/assets/web/assets/jquery/jquery.min.js?rnd=1731185557076"></script>
   <script src="https://r.mobirisesite.com/882873/assets/bootstrap/js/bootstrap.bundle.min.js?rnd=1731185557076"></script>
   <script src="https://r.mobirisesite.com/882873/assets/parallax/jarallax.js?rnd=1731185557076"></script>
@@ -307,6 +330,7 @@ function filterRecipes(category, element) {
   <script src="https://r.mobirisesite.com/882873/assets/scrollgallery/scroll-gallery.js?rnd=1731185557076"></script>
   <script src="https://r.mobirisesite.com/882873/assets/theme/js/script.js?rnd=1731185557076"></script>
   <script src="https://r.mobirisesite.com/882873/assets/formoid.min.js?rnd=1731185557076"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
   
   
   
