@@ -181,7 +181,7 @@
 	                    </h5>
 	                    <p class="mbr-text mbr-fonts-style mb-3 display-7"><?php echo htmlspecialchars($row["description"]); ?></p>
 	                    <div class="mbr-section-btn item-footer">
-	                        <a href="reciepe.php?id=<?php echo $row['recipe_id']; ?>" class="btn item-btn btn-primary display-7">查看</a>
+	                        <a href="recipe.php?id=<?php echo $row['recipe_id']; ?>" class="btn item-btn btn-primary display-7">查看</a>
 	                    </div>
 	                </div>
 	            </div>
