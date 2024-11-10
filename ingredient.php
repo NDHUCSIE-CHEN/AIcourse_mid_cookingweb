@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
   <meta name="description" content="探索簡單的食譜，讓烹飪變得輕鬆有趣！無論是新手還是專業廚師，這裡都有適合你的食譜。">
-  <title>材料庫存</title>
+  <title>食材庫存</title>
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/web/assets/mobirise-icons2/mobirise2.css?rnd=1731193637761">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap.min.css?rnd=1731193637761">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap-grid.min.css?rnd=1731193637761">
@@ -48,10 +48,10 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 					<li class="nav-item">
-						<h4><a class="nav-link link text-black display-4" href="category.php">分類</a></h4>
+						<h4><a class="nav-link link text-black display-4" href="category.php">分類檢索</a></h4>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">庫存</a>
+						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">食材庫存</a>
 					</li>	
 				</ul>
 				
