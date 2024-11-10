@@ -125,23 +125,29 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 	
 <section data-bs-version="5.1" class="features38 cid-utFk611Cny" id="features-65-utFk611Cny">
     
-<span class="blank" style="height: 150px;"></span>
-<h1><?php echo htmlspecialchars($recipe['name']); ?></h1>
-    <p><?php echo htmlspecialchars($recipe['description']); ?></p>
-    
-    <h2>食材</h2>
-    <ul>
-        <?php foreach ($ingredients as $ingredient): ?>
-            <li><?php echo htmlspecialchars($ingredient['ingredient']) . ': ' . htmlspecialchars($ingredient['quantity']) . ' ' . htmlspecialchars($ingredient['unit']); ?></li>
-        <?php endforeach; ?>
-    </ul>
-    
-    <h2>步驟</h2>
-    <ol>
-        <?php foreach ($steps as $step): ?>
-            <li><?php echo htmlspecialchars($step['step_description']); ?></li>
-        <?php endforeach; ?>
-    </ol>
+<span class="blank" style="height: 200px;"></span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center"><?php echo htmlspecialchars($recipe['name']); ?></h1>
+            <p class="text-center"><?php echo htmlspecialchars($recipe['description']); ?></p>
+
+            <h2 class="mt-4">食材</h2>
+            <ul class="list-unstyled">
+                <?php foreach ($ingredients as $ingredient): ?>
+                    <li><?php echo htmlspecialchars($ingredient['ingredient']) . ': ' . htmlspecialchars($ingredient['quantity']) . ' ' . htmlspecialchars($ingredient['unit']); ?></li>
+                <?php endforeach; ?>
+            </ul>
+
+            <h2 class="mt-4">步驟</h2>
+            <ol>
+                <?php foreach ($steps as $step): ?>
+                    <li><?php echo htmlspecialchars($step['step_description']); ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    </div>
+</div>
 </section>
 
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
