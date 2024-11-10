@@ -108,10 +108,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 					<li class="nav-item">
-						<h4><a class="nav-link link text-black display-4" href="category.php">分類</a></h4>
+						<h4><a class="nav-link link text-black display-4" href="category.php">分類檢索</a></h4>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">庫存</a>
+						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">食材庫存</a>
 					</li>	
 				</ul>
 				
