@@ -75,7 +75,7 @@
         <?php
         // 連接資料庫
         require "config.php";
-        include 'recipe_inventory.php';
+        //include 'recipe_inventory.php';
         $conn = mysqli_connect($host, $username, $password, $db_name);
 
         if (!$conn) {
