@@ -20,7 +20,12 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap&display=swap"></noscript>
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/css/mbr-additional.css?rnd=1731193637761" type="text/css">
   <link rel="stylesheet" href="CSS/mobirise_web.css" type="text/css">
-
+<style>
+  body{
+  background-image: url("images/_2865eef2-ab2f-4285-b32b-7d9d9178836e.jpg");
+  background-size: cover;
+  }
+</style>
 </head>
 <body>
 
@@ -63,7 +68,16 @@
 	</nav>
 </section>
 
-/*the recipes management*/
+<section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
+    <div class="container">
+        <div class="row">            
+            <div class="col-12 mt-4">
+                /*the recipes management*/
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
     <div class="container">
