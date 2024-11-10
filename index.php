@@ -156,26 +156,44 @@
       </div>
     </div>
     <div class="row">
-      <?php
-	for ($i = 0; $i < 4; $i++): ?>
-	    <div class="item features-image col-12 col-md-6 col-lg-3">
-	        <div class="item-wrapper">
-	            <div class="item-img mb-3">
-	                <img src="https://r.mobirisesite.com/882873/assets/images/photo-1601315379734-425a469078de.jpeg" alt="" title="" data-slide-to="1" data-bs-slide-to="1">
-	            </div>
-	            <div class="item-content align-left">
-	                <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
-	                    <strong>健康午餐的秘密武器</strong>
-	                </h5>
-	                <p class="mbr-text mbr-fonts-style mb-3 display-7">2024年11月8日</p>
-	                <p class="mbr-text mbr-fonts-style mb-3 display-7">想要健康又不失美味？這道午餐絕對是你的最佳選擇！</p>
-	                <div class="mbr-section-btn item-footer">
-	                    <a href="" class="btn item-btn btn-primary display-7">查看</a>
+    <?php
+	require "database/config.php";
+	        //Establish the connection
+	        $conn = mysqli_init();
+	        mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
+	        if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
+	            die('Failed to connect to MySQL: '.mysqli_connect_error());
+	        }
+	$sql = "SELECT recipe_id, name, description FROM recipes ORDER BY recipe_id DESC LIMIT 4";
+	$result = $conn->query($sql);
+	
+	// 檢查查詢結果並輸出
+	if ($result->num_rows > 0) {
+	    while ($row = $result->fetch_assoc()): ?>
+	        <div class="item features-image col-12 col-md-6 col-lg-3">
+	            <div class="item-wrapper">
+	                <div class="item-img mb-3">
+	                    <img src="https://r.mobirisesite.com/882873/assets/images/photo-1601315379734-425a469078de.jpeg" alt="" title="">
+	                </div>
+	                <div class="item-content align-left">
+	                    <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
+	                        <strong><?php echo htmlspecialchars($row["name"]); ?></strong>
+	                    </h5>
+	                    <p class="mbr-text mbr-fonts-style mb-3 display-7"><?php echo htmlspecialchars($row["description"]); ?></p>
+	                    <div class="mbr-section-btn item-footer">
+	                        <a href="reciepes.php?id=<?php echo $row['recipe_id']; ?>" class="btn item-btn btn-primary display-7">查看</a>
+	                    </div>
 	                </div>
 	            </div>
 	        </div>
-	    </div>
-	<?php endfor; ?>
+	    <?php endwhile;
+	} else {
+	    echo "沒有找到任何食譜。";
+	}
+	
+	// 關閉連接
+	$conn->close();
+	?>
     </div>
   </div>
 </section>
