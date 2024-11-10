@@ -93,15 +93,11 @@
         <?php while ($row = $result->fetch_assoc()): ?>
             <div class="row justify-content-left item features-without-image mt-0 mb-5">
                 <div class="col-12 col-md-12 col-lg-3">
-                    <h5 class="mbr-card-title mbr-fonts-style mt-0 mb-3 display-7">
+                    <h5>
                         <strong><?php echo htmlspecialchars($row['ingredient_name']); ?></strong>
                     </h5>
                 </div>
-                <div class="col-md-12 col-lg-8 item-wrapper">
-                    <p class="mbr-text mbr-fonts-style mt-0 mb-0 display-7">
                         <?php echo htmlspecialchars($row['quantity']) . ' ' . htmlspecialchars($row['unit']); ?>
-                    </p>
-                </div>
             </div>
         <?php endwhile; ?>
     <?php else: ?>
