@@ -19,7 +19,7 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap&display=swap"></noscript>
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/css/mbr-additional.css?rnd=1731193637761" type="text/css">
-  <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="CSS/mobirise_web.css" type="text/css">
 
 </head>
@@ -209,12 +209,10 @@
                         <select class="form-select" name="recipe_id" id="recipeSelect" required>
                             <option selected disabled>選擇食譜...</option>
                             <?php
-                            $conn = mysqli_connect($host, $username, $password, $db_name);
                             $recipe_result = mysqli_query($conn, "SELECT recipe_id, name FROM recipes");
                             while ($recipe = mysqli_fetch_assoc($recipe_result)) {
                                 echo "<option value='{$recipe['recipe_id']}'>{$recipe['name']}</option>";
                             }
-                            mysqli_close($conn);
                             ?>
                         </select>
                     </div>
@@ -250,12 +248,10 @@
                         <select class="form-select" name="ingredient_id" id="ingredientSelect" required>
                             <option selected disabled>選擇材料...</option>
                             <?php
-                            $conn = mysqli_connect($host, $username, $password, $db_name);
                             $ingredient_result = mysqli_query($conn, "SELECT ingredient_id, name FROM ingredients");
                             while ($ingredient = mysqli_fetch_assoc($ingredient_result)) {
                                 echo "<option value='{$ingredient['ingredient_id']}'>{$ingredient['name']}</option>";
                             }
-                            mysqli_close($conn);
                             ?>
                         </select>
                     </div>
