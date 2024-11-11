@@ -280,7 +280,8 @@
         }
     </script>
 </section>
-  <!-- 引入 Popper.js 和 Bootstrap JavaScript -->
+<!-- 引入 Popper.js 和 Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
  
 
