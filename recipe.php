@@ -5,7 +5,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     
     require "database/config.php";
     //include 'database/recipe_details.php';
-    include 'database/recipe_inventory.php';
+    //include 'database/recipe_inventory.php';
 
     $conn = mysqli_init();
     mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
