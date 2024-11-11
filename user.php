@@ -70,26 +70,29 @@
 
         <?php
         require "database/config.php";
-	//Establish the connection
-	$conn = mysqli_init();
-	mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
-	if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
-	    die('Failed to connect to MySQL: '.mysqli_connect_error());
-	}
+
+        $conn = mysqli_init();
+        mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
+        if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
+            die('Failed to connect to MySQL: ' . mysqli_connect_error());
+        }
 
         // 新增食譜
         if (isset($_POST['add_recipe'])) {
             $recipe_name = $_POST['recipe_name'];
             $ingredients = $_POST['ingredients'];
 
+            // 新增食譜至 recipes 表
             $sql = "INSERT INTO recipes (name) VALUES ('$recipe_name')";
             if (mysqli_query($conn, $sql)) {
                 $recipe_id = mysqli_insert_id($conn);
+                // 新增食材細節至 recipe_details 表
                 foreach ($ingredients as $ingredient) {
                     $ingredient_name = $ingredient['name'];
                     $quantity = $ingredient['quantity'];
                     $unit = $ingredient['unit'];
 
+                    // 檢查材料是否已存在於 ingredients 表
                     $check_sql = "SELECT ingredient_id FROM ingredients WHERE name = '$ingredient_name' AND unit = '$unit'";
                     $check_result = mysqli_query($conn, $check_sql);
 
@@ -99,12 +102,14 @@
                         $update_sql = "UPDATE ingredients SET quantity = quantity + $quantity WHERE ingredient_id = $ingredient_id";
                         mysqli_query($conn, $update_sql);
                     } else {
+                        // 新增新材料到 ingredients 表
                         $insert_sql = "INSERT INTO ingredients (name, quantity, unit) VALUES ('$ingredient_name', $quantity, '$unit')";
                         mysqli_query($conn, $insert_sql);
                         $ingredient_id = mysqli_insert_id($conn);
                     }
 
-                    $recipe_ingredient_sql = "INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, unit) VALUES ($recipe_id, $ingredient_id, $quantity, '$unit')";
+                    // 新增食譜和材料的關聯到 recipe_details 表
+                    $recipe_ingredient_sql = "INSERT INTO recipe_details (recipe_id, ingredient, quantity) VALUES ($recipe_id, '$ingredient_name', $quantity)";
                     mysqli_query($conn, $recipe_ingredient_sql);
                 }
                 echo "<div class='alert alert-success'>食譜新增成功</div>";
@@ -138,12 +143,12 @@
             }
         }
 
-        // 刪除食譜
+        // 刪除食譜及相關細節
         if (isset($_POST['delete_recipe'])) {
             $recipe_id = $_POST['recipe_id'];
             $delete_sql = "DELETE FROM recipes WHERE recipe_id = $recipe_id";
             if (mysqli_query($conn, $delete_sql)) {
-                echo "<div class='alert alert-success'>食譜刪除成功</div>";
+                echo "<div class='alert alert-success'>食譜及其相關細節刪除成功</div>";
             } else {
                 echo "<div class='alert alert-danger'>刪除失敗: " . mysqli_error($conn) . "</div>";
             }
@@ -168,6 +173,9 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="add-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="available-recipes-tab" data-bs-toggle="tab" data-bs-target="#available-recipes" type="button" role="tab" aria-controls="available-recipes" aria-selected="false">可製作食譜</button>
             </li>
         </ul>
 
@@ -201,6 +209,7 @@
                         <select class="form-select" name="recipe_id" id="recipeSelect" required>
                             <option selected disabled>選擇食譜...</option>
                             <?php
+                            $conn = mysqli_connect($host, $username, $password, $db_name);
                             $recipe_result = mysqli_query($conn, "SELECT recipe_id, name FROM recipes");
                             while ($recipe = mysqli_fetch_assoc($recipe_result)) {
                                 echo "<option value='{$recipe['recipe_id']}'>{$recipe['name']}</option>";
@@ -241,6 +250,7 @@
                         <select class="form-select" name="ingredient_id" id="ingredientSelect" required>
                             <option selected disabled>選擇材料...</option>
                             <?php
+                            $conn = mysqli_connect($host, $username, $password, $db_name);
                             $ingredient_result = mysqli_query($conn, "SELECT ingredient_id, name FROM ingredients");
                             while ($ingredient = mysqli_fetch_assoc($ingredient_result)) {
                                 echo "<option value='{$ingredient['ingredient_id']}'>{$ingredient['name']}</option>";
@@ -251,6 +261,35 @@
                     </div>
                     <button type="submit" name="delete_ingredient" class="btn btn-danger">刪除材料</button>
                 </form>
+            </div>
+
+            <!-- 可製作食譜 -->
+            <div class="tab-pane fade" id="available-recipes" role="tabpanel" aria-labelledby="available-recipes-tab">
+                <h3>可製作的食譜</h3>
+                <?php
+                $recipe_sql = "
+                    SELECT r.recipe_id, r.name 
+                    FROM recipes r 
+                    JOIN recipe_details rd ON r.recipe_id = rd.recipe_id 
+                    JOIN ingredients i ON rd.ingredient = i.name 
+                    WHERE i.quantity >= rd.quantity
+                    GROUP BY r.recipe_id 
+                    HAVING COUNT(DISTINCT rd.ingredient) = 
+                    (SELECT COUNT(*) FROM recipe_details WHERE recipe_details.recipe_id = r.recipe_id)
+                ";
+
+                $recipe_result = mysqli_query($conn, $recipe_sql);
+
+                if (mysqli_num_rows($recipe_result) > 0) {
+                    echo "<ul class='list-group'>";
+                    while ($recipe = mysqli_fetch_assoc($recipe_result)) {
+                        echo "<li class='list-group-item'>{$recipe['name']}</li>";
+                    }
+                    echo "</ul>";
+                } else {
+                    echo "<p class='text-muted'>目前沒有足夠的食材製作任何食譜。</p>";
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -291,3 +330,8 @@
 
 </body>
 </html>
+<?php
+// 關閉資料庫連接
+mysqli_close($conn);
+?>
+
