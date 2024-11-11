@@ -1,49 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>使用者介面</title>
-    <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
-    <!-- 引入 Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<!-- 導覽列 -->
-<section class="menu menu2">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="images/Cookicon.png" alt="Logo" style="height: 4.3rem;">
-                食譜
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="category.php">分類檢索</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ingredient.php">食材庫存</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-primary" href="user.php">個人帳戶</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</section>
-
-<section data-bs-version="5.1" class="list03 cid-utFOYEnw9D" id="list03-8">
     <div class="container mt-5">
         <h1 class="text-center mb-4">食譜管理介面</h1>
-
+        
         <?php
+        // 連接資料庫
         require "database/config.php";
 
         $conn = mysqli_init();
@@ -55,85 +23,41 @@
         // 新增食譜
         if (isset($_POST['add_recipe'])) {
             $recipe_name = $_POST['recipe_name'];
-            $ingredients = $_POST['ingredients'];
-
-            // 新增食譜至 recipes 表
             $sql = "INSERT INTO recipes (name) VALUES ('$recipe_name')";
             if (mysqli_query($conn, $sql)) {
-                $recipe_id = mysqli_insert_id($conn);
-                // 新增食材細節至 recipe_details 表
-                foreach ($ingredients as $ingredient) {
-                    $ingredient_name = $ingredient['name'];
-                    $quantity = $ingredient['quantity'];
-                    $unit = $ingredient['unit'];
-
-                    // 檢查材料是否已存在於 ingredients 表
-                    $check_sql = "SELECT ingredient_id FROM ingredients WHERE name = '$ingredient_name' AND unit = '$unit'";
-                    $check_result = mysqli_query($conn, $check_sql);
-
-                    if (mysqli_num_rows($check_result) > 0) {
-                        $row = mysqli_fetch_assoc($check_result);
-                        $ingredient_id = $row['ingredient_id'];
-                        $update_sql = "UPDATE ingredients SET quantity = quantity + $quantity WHERE ingredient_id = $ingredient_id";
-                        mysqli_query($conn, $update_sql);
-                    } else {
-                        // 新增新材料到 ingredients 表
-                        $insert_sql = "INSERT INTO ingredients (name, quantity, unit) VALUES ('$ingredient_name', $quantity, '$unit')";
-                        mysqli_query($conn, $insert_sql);
-                        $ingredient_id = mysqli_insert_id($conn);
-                    }
-
-                    // 新增食譜和材料的關聯到 recipe_details 表
-                    $recipe_ingredient_sql = "INSERT INTO recipe_details (recipe_id, ingredient, quantity) VALUES ($recipe_id, '$ingredient_name', $quantity)";
-                    mysqli_query($conn, $recipe_ingredient_sql);
-                }
                 echo "<div class='alert alert-success'>食譜新增成功</div>";
             } else {
                 echo "<div class='alert alert-danger'>新增失敗: " . mysqli_error($conn) . "</div>";
             }
         }
 
-        // 新增材料
-        if (isset($_POST['add_ingredient'])) {
-            $ingredient_name = $_POST['ingredient_name'];
-            $quantity = $_POST['quantity'];
-            $unit = $_POST['unit'];
-
-            $check_sql = "SELECT ingredient_id FROM ingredients WHERE name = '$ingredient_name' AND unit = '$unit'";
-            $check_result = mysqli_query($conn, $check_sql);
-
-            if (mysqli_num_rows($check_result) > 0) {
-                $row = mysqli_fetch_assoc($check_result);
-                $ingredient_id = $row['ingredient_id'];
-                $update_sql = "UPDATE ingredients SET quantity = quantity + $quantity WHERE ingredient_id = $ingredient_id";
-                mysqli_query($conn, $update_sql);
-                echo "<div class='alert alert-success'>材料已存在，數量已更新</div>";
+        // 刪除食譜
+        if (isset($_POST['delete_recipe'])) {
+            $recipe_id = $_POST['recipe_id'];
+            $sql = "DELETE FROM recipes WHERE recipe_id = $recipe_id";
+            if (mysqli_query($conn, $sql)) {
+                echo "<div class='alert alert-success'>食譜刪除成功</div>";
             } else {
-                $insert_sql = "INSERT INTO ingredients (name, quantity, unit) VALUES ('$ingredient_name', $quantity, '$unit')";
-                if (mysqli_query($conn, $insert_sql)) {
-                    echo "<div class='alert alert-success'>材料新增成功</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>新增材料失敗: " . mysqli_error($conn) . "</div>";
-                }
+                echo "<div class='alert alert-danger'>刪除失敗: " . mysqli_error($conn) . "</div>";
             }
         }
 
-        // 刪除食譜及相關細節
-        if (isset($_POST['delete_recipe'])) {
-            $recipe_id = $_POST['recipe_id'];
-            $delete_sql = "DELETE FROM recipes WHERE recipe_id = $recipe_id";
-            if (mysqli_query($conn, $delete_sql)) {
-                echo "<div class='alert alert-success'>食譜及其相關細節刪除成功</div>";
+        // 新增材料
+        if (isset($_POST['add_ingredient'])) {
+            $ingredient_name = $_POST['ingredient_name'];
+            $sql = "INSERT INTO ingredients (name) VALUES ('$ingredient_name')";
+            if (mysqli_query($conn, $sql)) {
+                echo "<div class='alert alert-success'>材料新增成功</div>";
             } else {
-                echo "<div class='alert alert-danger'>刪除失敗: " . mysqli_error($conn) . "</div>";
+                echo "<div class='alert alert-danger'>新增失敗: " . mysqli_error($conn) . "</div>";
             }
         }
 
         // 刪除材料
         if (isset($_POST['delete_ingredient'])) {
             $ingredient_id = $_POST['ingredient_id'];
-            $delete_sql = "DELETE FROM ingredients WHERE ingredient_id = $ingredient_id";
-            if (mysqli_query($conn, $delete_sql)) {
+            $sql = "DELETE FROM ingredients WHERE ingredient_id = $ingredient_id";
+            if (mysqli_query($conn, $sql)) {
                 echo "<div class='alert alert-success'>材料刪除成功</div>";
             } else {
                 echo "<div class='alert alert-danger'>刪除失敗: " . mysqli_error($conn) . "</div>";
@@ -144,35 +68,60 @@
         <!-- 標籤選單 -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link " id="add-recipe-tab" data-bs-toggle="tab" data-bs-target="#add-recipe" type="button" role="tab" aria-controls="add-recipe" aria-selected="true"><a herf="user.php">新增 / 刪除食譜</a></button>
+                <button class="nav-link" id="add-delete-recipe-tab" data-bs-toggle="tab" data-bs-target="#add-delete-recipe" type="button" role="tab" aria-controls="add-delete-recipe" aria-selected="true">新增 / 刪除食譜</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="add-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
+                <button class="nav-link active" id="add-delete-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-delete-ingredient" type="button" role="tab" aria-controls="add-delete-ingredient" aria-selected="false">新增 / 刪除材料</button>
             </li>
         </ul>
-
-        <div class="tab-content" id="myTabContent">
+        
+        <div class="tab-content mt-4" id="myTabContent">
+            
+            <!-- 新增 / 刪除食譜 -->
+            <div class="tab-pane fade" id="add-delete-recipe" role="tabpanel" aria-labelledby="add-delete-recipe-tab">
+                <h3>新增食譜</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="recipeName" class="form-label">食譜名稱</label>
+                        <input type="text" class="form-control" name="recipe_name" id="recipeName" required>
+                    </div>
+                    <button type="submit" name="add_recipe" class="btn btn-primary">新增食譜</button>
+                </form>
+                
+                <hr class="my-4">
+                
+                <h3>刪除食譜</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="recipeSelect" class="form-label">選擇要刪除的食譜</label>
+                        <select class="form-select" name="recipe_id" id="recipeSelect" required>
+                            <option selected disabled>選擇食譜...</option>
+                            <?php
+                            // 從資料庫中獲取食譜
+                            $recipe_result = mysqli_query($conn, "SELECT recipe_id, name FROM recipes");
+                            while ($recipe = mysqli_fetch_assoc($recipe_result)) {
+                                echo "<option value='{$recipe['recipe_id']}'>{$recipe['name']}</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" name="delete_recipe" class="btn btn-danger">刪除食譜</button>
+                </form>
+            </div>
+            
             <!-- 新增 / 刪除材料 -->
-            <div class="tab-pane fade show active" id="add-ingredient" role="tabpanel" aria-labelledby="add-ingredient-tab">
+            <div class="tab-pane fade show active" id="add-delete-ingredient" role="tabpanel" aria-labelledby="add-delete-ingredient-tab">
                 <h3>新增材料</h3>
                 <form method="POST">
                     <div class="mb-3">
                         <label for="ingredientName" class="form-label">材料名稱</label>
                         <input type="text" class="form-control" name="ingredient_name" id="ingredientName" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">數量</label>
-                        <input type="number" step="0.01" class="form-control" name="quantity" id="quantity" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="unit" class="form-label">單位</label>
-                        <input type="text" class="form-control" name="unit" id="unit" required>
-                    </div>
                     <button type="submit" name="add_ingredient" class="btn btn-primary">新增材料</button>
                 </form>
-
+                
                 <hr class="my-4">
-
+                
                 <h3>刪除材料</h3>
                 <form method="POST">
                     <div class="mb-3">
@@ -180,6 +129,7 @@
                         <select class="form-select" name="ingredient_id" id="ingredientSelect" required>
                             <option selected disabled>選擇材料...</option>
                             <?php
+                            // 從資料庫中獲取材料
                             $ingredient_result = mysqli_query($conn, "SELECT ingredient_id, name FROM ingredients");
                             while ($ingredient = mysqli_fetch_assoc($ingredient_result)) {
                                 echo "<option value='{$ingredient['ingredient_id']}'>{$ingredient['name']}</option>";
@@ -190,33 +140,13 @@
                     <button type="submit" name="delete_ingredient" class="btn btn-danger">刪除材料</button>
                 </form>
             </div>
-
+            
         </div>
     </div>
 
-    <script>
-        let ingredientIndex = 1;
-        function addIngredient() {
-            const ingredientDiv = document.createElement("div");
-            ingredientDiv.classList.add("ingredient", "mb-3");
-            ingredientDiv.innerHTML = `
-                <input type="text" class="form-control mb-2" name="ingredients[${ingredientIndex}][name]" placeholder="材料名稱" required>
-                <input type="number" step="0.01" class="form-control mb-2" name="ingredients[${ingredientIndex}][quantity]" placeholder="數量" required>
-                <input type="text" class="form-control mb-2" name="ingredients[${ingredientIndex}][unit]" placeholder="單位" required>
-            `;
-            document.getElementById("ingredients").appendChild(ingredientDiv);
-            ingredientIndex++;
-        }
-    </script>
-</section>
-<!-- 引入 Popper.js 和 Bootstrap JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
- 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 <?php
-// 關閉資料庫連接
 mysqli_close($conn);
 ?>
