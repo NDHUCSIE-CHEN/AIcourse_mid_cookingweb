@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html >
 <head>
-<style>
-
+  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
   <meta name="description" content="探索簡單的食譜，讓烹飪變得輕鬆有趣！無論是新手還是專業廚師，這裡都有適合你的食譜。">
-  <title>個人帳戶</title>
+  <title>食材庫存</title>
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/web/assets/mobirise-icons2/mobirise2.css?rnd=1731193637761">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap.min.css?rnd=1731193637761">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/bootstrap/css/bootstrap-grid.min.css?rnd=1731193637761">
@@ -20,12 +19,13 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap&display=swap"></noscript>
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/css/mbr-additional.css?rnd=1731193637761" type="text/css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="CSS/mobirise_web.css" type="text/css">
 
 </head>
 <body>
-
-  <section data-bs-version="5.1" class="menu menu2 cid-utFk60XNeX" once="menu" id="menu-5-utFk60XNeX">
+<!--導覽列-->
+<section data-bs-version="5.1" class="menu menu2 cid-utFk60XNeX" once="menu" id="menu-5-utFk60XNeX">
 	
 
 	<nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
@@ -49,10 +49,10 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 					<li class="nav-item">
-						<h4><a class="nav-link link text-black display-4" href="category.php">分類</a></h4>
+						<h4><a class="nav-link link text-black display-4" href="category.php">分類檢索</a></h4>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">庫存</a>
+						<a class="nav-link link text-black display-4" href="ingredient.php" aria-expanded="false">食材庫存</a>
 					</li>	
 				</ul>
 				
@@ -64,7 +64,7 @@
 	</nav>
 </section>
 
-<section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
+<section data-bs-version="5.1" class="list03 cid-utFOYEnw9D" id="list03-8">
     <div class="container mt-5">
         <h1 class="text-center mb-4">食譜管理介面</h1>
         
@@ -154,17 +154,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-</section>
-
-
-<section data-bs-version="5.1" class="footer3 cid-utFk6130Mz" once="footers" id="footer-6-utFk6130Mz">  
-    <div class="container">
-        <div class="row">            
-            <div class="col-12 mt-4">
-                <p class="mbr-fonts-style copyright display-7">© 2024 食譜網站. 拜託網站跑起來.</p>
-            </div>
-        </div>
-    </div>
 </section>
 
 
