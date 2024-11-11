@@ -66,16 +66,6 @@
 
 <section data-bs-version="5.1" class="tabs content18 cid-utFNhZgaKF" id="tabs1-4">
     <div class="container mt-5">
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>食譜管理介面</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
         <h1 class="text-center mb-4">食譜管理介面</h1>
         
         <!-- 標籤選單 -->
@@ -161,12 +151,6 @@
             </div>
             
         </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
