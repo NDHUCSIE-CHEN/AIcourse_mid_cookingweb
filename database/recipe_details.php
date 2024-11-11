@@ -1,6 +1,6 @@
 <?php
 require "config.php";
-$s = 1;
+$s = 6;
 $conn = mysqli_init();
 mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
 if (!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)) {
@@ -28,7 +28,7 @@ if ($conn->query($sql) === TRUE) {
 }
 
 // 插入範例數據到 recipe_details
-while ($s < 6) {
+while ($s < 10) {
     $base_id = $s * 12; // 每次增加的 recipe_id 基數
     $insert_sql = "INSERT INTO recipe_details (recipe_id, ingredient, quantity, unit, step_number, step_description) VALUES 
         (" . ($base_id + 1) . ", '燕麥', 50, '克', 1, '將燕麥放入鍋中，用水煮沸。'),
