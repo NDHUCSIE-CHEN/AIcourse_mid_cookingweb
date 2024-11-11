@@ -149,9 +149,6 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="add-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="available-recipes-tab" data-bs-toggle="tab" data-bs-target="#available-recipes" type="button" role="tab" aria-controls="available-recipes" aria-selected="false">可製作食譜</button>
-            </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
@@ -234,34 +231,6 @@
                 </form>
             </div>
 
-            <!-- 可製作食譜 -->
-            <div class="tab-pane fade" id="available-recipes" role="tabpanel" aria-labelledby="available-recipes-tab">
-                <h3>可製作的食譜</h3>
-                <?php
-                $recipe_sql = "
-                    SELECT r.recipe_id, r.name 
-                    FROM recipes r 
-                    JOIN recipe_details rd ON r.recipe_id = rd.recipe_id 
-                    JOIN ingredients i ON rd.ingredient = i.name 
-                    WHERE i.quantity >= rd.quantity
-                    GROUP BY r.recipe_id 
-                    HAVING COUNT(DISTINCT rd.ingredient) = 
-                    (SELECT COUNT(*) FROM recipe_details WHERE recipe_details.recipe_id = r.recipe_id)
-                ";
-
-                $recipe_result = mysqli_query($conn, $recipe_sql);
-
-                if (mysqli_num_rows($recipe_result) > 0) {
-                    echo "<ul class='list-group'>";
-                    while ($recipe = mysqli_fetch_assoc($recipe_result)) {
-                        echo "<li class='list-group-item'>{$recipe['name']}</li>";
-                    }
-                    echo "</ul>";
-                } else {
-                    echo "<p class='text-muted'>目前沒有足夠的食材製作任何食譜。</p>";
-                }
-                ?>
-            </div>
         </div>
     </div>
 
