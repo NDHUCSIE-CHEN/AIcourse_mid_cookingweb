@@ -69,12 +69,13 @@
         <h1 class="text-center mb-4">食譜管理介面</h1>
 
         <?php
-        require "config.php";
-        $conn = mysqli_connect($host, $username, $password, $db_name);
-
-        if (!$conn) {
-            die("資料庫連接失敗: " . mysqli_connect_error());
-        }
+        require "database/config.php";
+	//Establish the connection
+	$conn = mysqli_init();
+	mysqli_ssl_set($conn,NULL,NULL,$sslcert,NULL,NULL);
+	if(!mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306, MYSQLI_CLIENT_SSL)){
+	    die('Failed to connect to MySQL: '.mysqli_connect_error());
+	}
 
         // 新增食譜
         if (isset($_POST['add_recipe'])) {
