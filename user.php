@@ -168,13 +168,13 @@
 
         <!-- 標籤選單 -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
+            <li class="nav-item">
                 <button class="nav-link active" id="add-recipe-tab" data-bs-toggle="tab" data-bs-target="#add-recipe" type="button" role="tab" aria-controls="add-recipe" aria-selected="true">新增 / 刪除食譜</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item">
                 <button class="nav-link" id="add-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item">
                 <button class="nav-link" id="available-recipes-tab" data-bs-toggle="tab" data-bs-target="#available-recipes" type="button" role="tab" aria-controls="available-recipes" aria-selected="false">可製作食譜</button>
             </li>
         </ul>
