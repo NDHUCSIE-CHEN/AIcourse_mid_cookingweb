@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/theme/css/style.css?rnd=1731193637761">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;700&display=swap&display=swap"></noscript>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://r.mobirisesite.com/882873/assets/css/mbr-additional.css?rnd=1731193637761" type="text/css">
   <link rel="stylesheet" href="CSS/mobirise_web.css" type="text/css">
 
@@ -167,13 +168,13 @@
 
         <!-- 標籤選單 -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="add-recipe-tab" data-bs-toggle="tab" data-bs-target="#add-recipe" type="button" role="tab" aria-controls="add-recipe" aria-selected="true">新增 / 刪除食譜</button>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="add-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="available-recipes-tab" data-bs-toggle="tab" data-bs-target="#available-recipes" type="button" role="tab" aria-controls="available-recipes" aria-selected="false">可製作食譜</button>
             </li>
         </ul>
