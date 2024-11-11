@@ -1,4 +1,49 @@
-<?php
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用者介面</title>
+    <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<!-- 導覽列 -->
+<section class="menu menu2">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="images/Cookicon.png" alt="Logo" style="height: 4.3rem;">
+                食譜
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="category.php">分類檢索</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ingredient.php">食材庫存</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="user.php">個人帳戶</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<section data-bs-version="5.1" class="list03 cid-utFOYEnw9D" id="list03-8">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">食譜管理介面</h1>
+
+        <?php
         require "database/config.php";
 
         $conn = mysqli_init();
@@ -94,95 +139,58 @@
                 echo "<div class='alert alert-danger'>刪除失敗: " . mysqli_error($conn) . "</div>";
             }
         }
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>使用者介面</title>
-    <link rel="shortcut icon" href="images/Cookicon.png" type="image/x-icon">
-    <!-- 引入 Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-</head>
-<body>
-<!-- 導覽列 -->
-<section class="menu menu2">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="images/Cookicon.png" alt="Logo" style="height: 4.3rem;">
-                食譜
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="category.php">分類檢索</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ingredient.php">食材庫存</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="btn btn-primary" href="user.php">個人帳戶</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</section>
-
-<section data-bs-version="5.1" class="list03 cid-utFOYEnw9D" id="list03-8">
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">食譜管理介面</h1>
+        ?>
 
         <!-- 標籤選單 -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link " id="add-recipe-tab" data-bs-toggle="tab" data-bs-target="#add-recipe" type="button" role="tab" aria-controls="add-recipe" aria-selected="true">新增 / 刪除食譜</button>
+                <button class="nav-link " id="add-recipe-tab" data-bs-toggle="tab" data-bs-target="#add-recipe" type="button" role="tab" aria-controls="add-recipe" aria-selected="true"><a herf="user.php">新增 / 刪除食譜</a></button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="add-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="available-recipes-tab" data-bs-toggle="tab" data-bs-target="#available-recipes" type="button" role="tab" aria-controls="available-recipes" aria-selected="false">可製作食譜</button>
+                <button class="nav-link active" id="add-ingredient-tab" data-bs-toggle="tab" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
             </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
-            <!-- 可製作食譜 -->
-            <div class="tab-pane fade show active" id="available-recipes" role="tabpanel" aria-labelledby="available-recipes-tab">
-                <h3>可製作的食譜</h3>
-                <?php
-                $recipe_sql = "
-                    SELECT r.recipe_id, r.name 
-                    FROM recipes r 
-                    JOIN recipe_details rd ON r.recipe_id = rd.recipe_id 
-                    JOIN ingredients i ON rd.ingredient = i.name 
-                    WHERE i.quantity >= rd.quantity
-                    GROUP BY r.recipe_id 
-                    HAVING COUNT(DISTINCT rd.ingredient) = 
-                    (SELECT COUNT(*) FROM recipe_details WHERE recipe_details.recipe_id = r.recipe_id)
-                ";
+            <!-- 新增 / 刪除材料 -->
+            <div class="tab-pane fade show active" id="add-ingredient" role="tabpanel" aria-labelledby="add-ingredient-tab">
+                <h3>新增材料</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="ingredientName" class="form-label">材料名稱</label>
+                        <input type="text" class="form-control" name="ingredient_name" id="ingredientName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">數量</label>
+                        <input type="number" step="0.01" class="form-control" name="quantity" id="quantity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="unit" class="form-label">單位</label>
+                        <input type="text" class="form-control" name="unit" id="unit" required>
+                    </div>
+                    <button type="submit" name="add_ingredient" class="btn btn-primary">新增材料</button>
+                </form>
 
-                $recipe_result = mysqli_query($conn, $recipe_sql);
+                <hr class="my-4">
 
-                if (mysqli_num_rows($recipe_result) > 0) {
-                    echo "<ul class='list-group'>";
-                    while ($recipe = mysqli_fetch_assoc($recipe_result)) {
-                        echo "<li class='list-group-item'>{$recipe['name']}</li>";
-                    }
-                    echo "</ul>";
-                } else {
-                    echo "<p class='text-muted'>目前沒有足夠的食材製作任何食譜。</p>";
-                }
-                ?>
+                <h3>刪除材料</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="ingredientSelect" class="form-label">選擇要刪除的材料</label>
+                        <select class="form-select" name="ingredient_id" id="ingredientSelect" required>
+                            <option selected disabled>選擇材料...</option>
+                            <?php
+                            $ingredient_result = mysqli_query($conn, "SELECT ingredient_id, name FROM ingredients");
+                            while ($ingredient = mysqli_fetch_assoc($ingredient_result)) {
+                                echo "<option value='{$ingredient['ingredient_id']}'>{$ingredient['name']}</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="submit" name="delete_ingredient" class="btn btn-danger">刪除材料</button>
+                </form>
             </div>
+
         </div>
     </div>
 
