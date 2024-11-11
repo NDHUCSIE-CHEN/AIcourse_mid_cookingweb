@@ -68,18 +68,6 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">食譜管理介面</h1>
 
-    <ul class="nav nav-pills mb-3 justify-content-center" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="add-recipe-tab" data-bs-toggle="pill" data-bs-target="#add-recipe" type="button" role="tab" aria-controls="add-recipe" aria-selected="true">新增 / 刪除食譜</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="add-ingredient-tab" data-bs-toggle="pill" data-bs-target="#add-ingredient" type="button" role="tab" aria-controls="add-ingredient" aria-selected="false">新增 / 刪除材料</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="available-recipes-tab" data-bs-toggle="pill" data-bs-target="#available-recipes" type="button" role="tab" aria-controls="available-recipes" aria-selected="false">可製作食譜</button>
-        </li>
-    </ul>
-
         <?php
         require "database/config.php";
 
