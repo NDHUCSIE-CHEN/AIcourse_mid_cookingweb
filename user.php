@@ -45,7 +45,7 @@
         // 新增材料
         if (isset($_POST['add_ingredient'])) {
             $ingredient_name = $_POST['ingredient_name'];
-            $sql = "INSERT INTO ingredients (name) VALUES ('$ingredient_name')";
+            $sql = "INSERT INTO inventory (name) VALUES ('$ingredient_name')";
             if (mysqli_query($conn, $sql)) {
                 echo "<div class='alert alert-success'>材料新增成功</div>";
             } else {
@@ -56,7 +56,7 @@
         // 刪除材料
         if (isset($_POST['delete_ingredient'])) {
             $ingredient_id = $_POST['ingredient_id'];
-            $sql = "DELETE FROM ingredients WHERE ingredient_id = $ingredient_id";
+            $sql = "DELETE FROM inventory WHERE ingredient_id = $ingredient_id";
             if (mysqli_query($conn, $sql)) {
                 echo "<div class='alert alert-success'>材料刪除成功</div>";
             } else {
@@ -130,7 +130,7 @@
                             <option selected disabled>選擇材料...</option>
                             <?php
                             // 從資料庫中獲取材料
-                            $ingredient_result = mysqli_query($conn, "SELECT ingredient_id, name FROM ingredients");
+                            $ingredient_result = mysqli_query($conn, "SELECT ingredient_id, name FROM inventory");
                             while ($ingredient = mysqli_fetch_assoc($ingredient_result)) {
                                 echo "<option value='{$ingredient['ingredient_id']}'>{$ingredient['name']}</option>";
                             }
