@@ -4,8 +4,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $recipe_id = $_GET['id'];
     
     require "database/config.php";
-    include 'database/project.php';
-    include 'database/recipe_details.php';
+    //include 'database/project.php';
+    //include 'database/recipe_details.php';
 	
     $conn = mysqli_init();
     mysqli_ssl_set($conn, NULL, NULL, $sslcert, NULL, NULL);
