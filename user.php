@@ -179,7 +179,7 @@
             </li>
         </ul>
 
-        <div class="tab-content mt-4" id="myTabContent">
+        <div class="tab-content" id="myTabContent">
             <!-- 新增 / 刪除食譜 -->
             <div class="tab-pane fade show active" id="add-recipe" role="tabpanel" aria-labelledby="add-recipe-tab">
                 <h3>新增食譜</h3>
